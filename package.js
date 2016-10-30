@@ -1,6 +1,6 @@
 Package.describe({
-  name: 'reactive-history',
-  version: '0.0.1',
+  name: 'quarterto:reactive-history',
+  version: '1.0.0',
   summary: 'history for meteor, letting tracker do most of the work',
   git: 'git://github.com/quarterto/reactive-history.git',
   documentation: 'README.md'
