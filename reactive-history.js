@@ -1,18 +1,29 @@
 import {ReactiveVar} from 'meteor/reactive-var';
 
-const currentUrl = new ReactiveVar(location.pathname);
+export const history = new ReactiveVar(location.pathname);
+export const state = new ReactiveVar({});
 
 export const setUrl = url => {
-	currentUrl.set(url);
+	history.set(url);
+};
+
+export const setState = s => {
+	state.set(s);
 };
 
 export const setUrlFromLocation = () => {
 	setUrl(location.pathname);
 };
 
-export const navigate = url => {
+const handlePopstate = (ev) => {
+	setUrlFromLocation();
+	setState(ev.state);
+};
+
+export const navigate = (url, state = {}) => {
 	setUrl(url);
-	window.history.pushState({}, null, url);
+	setState(state);
+	window.history.pushState(state, null, url);
 };
 
 export const link = ev => {
@@ -21,12 +32,10 @@ export const link = ev => {
 };
 
 export const start = () => {
-	currentUrl.set(location.pathname);
-	window.addEventListener('popstate', setUrlFromLocation);
+	history.set(location.pathname);
+	window.addEventListener('popstate', handlePopstate);
 };
 
 export const stop = () => {
-	window.removeEventListener('popstate', setUrlFromLocation);
+	window.removeEventListener('popstate', handlePopstate);
 };
-
-export const history = currentUrl;
