@@ -16,7 +16,7 @@ export const setUrlFromLocation = () => {
 };
 
 export const setStateFromHistory = () => {
-	setState(history.state);
+	setState(window.history.state);
 };
 
 const handlePopstate = (ev) => {
