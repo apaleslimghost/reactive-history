@@ -15,6 +15,10 @@ export const setUrlFromLocation = () => {
 	setUrl(location.pathname);
 };
 
+export const setStateFromHistory = () => {
+	setState(history.state);
+};
+
 const handlePopstate = (ev) => {
 	setUrlFromLocation();
 	setState(ev.state);
@@ -32,7 +36,8 @@ export const link = ev => {
 };
 
 export const start = () => {
-	history.set(location.pathname);
+	setUrlFromLocation();
+	setStateFromHistory();
 	window.addEventListener('popstate', handlePopstate);
 };
 
